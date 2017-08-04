@@ -48,7 +48,7 @@
 	var dateFormat = d3.time.format('%m/%d/%Y');
 
 	function tidyData(csv) {
-		
+
 		// Tidy all the data in to the correct types as CSV gives everything as a string
 		csv.forEach(function(d, i) {
 			if (d['type'] === 'milestone') {
@@ -61,7 +61,7 @@
 				d.end_date = dateFormat.parse(d.end_date);
 				d.priority = parseInt(d.priority);
 				data.push(d);
-			
+
 			}
 
 		});
@@ -291,8 +291,9 @@
 	 * should be the same-ish as export in 'data/data.csv'
 	 * propending the url here with a heroku proxy to pull data from google sheets
 	 */
-	var csvURL = 'http://guarded-ocean-2049.herokuapp.com/https://docs.google.com/spreadsheet/pub?key=1IHocOhSxwA9XkO6rznmetSz_ATBIAPHgms4htOEd-tk&single=true&gid=0&output=csv';
-	
+
+  var csvURL = "https://docs.google.com/spreadsheets/d/1j3bZ2lsOxnAL4TPYtmC8LKycEQTkwYlLQNidtPyk8U4/pub?output=csv";
+
 
 	d3.csv(csvURL, function(csv) {
 		tidyData(csv);
