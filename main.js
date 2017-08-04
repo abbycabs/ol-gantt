@@ -292,7 +292,7 @@
 	 * propending the url here with a heroku proxy to pull data from google sheets
 	 */
 
-  var csvURL = "https://docs.google.com/spreadsheets/d/1j3bZ2lsOxnAL4TPYtmC8LKycEQTkwYlLQNidtPyk8U4/pub?output=csv";
+   var csvURL = "https://docs.google.com/spreadsheets/d/1j3bZ2lsOxnAL4TPYtmC8LKycEQTkwYlLQNidtPyk8U4/pub?output=csv&callback=?";
 
 
 	d3.csv(csvURL, function(csv) {
