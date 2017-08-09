@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Open Leadership Cal</title>
-	<script src="libs/d3.v3.min.js"></script>
+	<title>#WOLO Calendar</title>
+  <script src="libs/d3.v3.min.js"></script>
 	<link rel="stylesheet" href="assets/normalize.css">
 	<link rel="stylesheet" href="assets/foundation.min.css">
 	<meta charset="utf-8">
@@ -87,7 +87,7 @@
 			padding-top:30px
 		}
 		#legend {
-			width: 320px;
+			width: 380px;
 			position: fixed;
 			top: 10px;
 			right: 30px;
@@ -97,7 +97,7 @@
 			background: rgba(250, 250, 250, .5);
 		}
 		#legend-2 {
-			width: 420px;
+			width: 440px;
 			position: fixed;
 			top: 77px;
 			right: 30px;
@@ -122,7 +122,7 @@
 		.legend-style .legend-scale ul li {
 			display: block;
 			float: left;
-			width: 50px;
+      width: 60px;
 			margin-bottom: 6px;
 			text-align: center;
 			font-size: 75%;
@@ -132,7 +132,7 @@
 			display: block;
 			float: left;
 			height: 15px;
-			width: 50px;
+			width: 60px;
 		}
 		.legend-style a {
 			color: #777;
@@ -180,7 +180,7 @@
 		<div id="button-container" class="row header">
 			<!-- TITLE BAR -->
 			<header class="large-6 columns hide-for-small-only">
-				<h1>Open Leadership Cal 2016</h1>
+				<h1>Open Leadership 2018</h1>
 			</header>
 			<hr>
 			<!-- SORTER/FILTER/COLOR BUTTONS -->
@@ -190,7 +190,7 @@
 					<li class="hollow secondary button tiny" data-sorter="deliverable">Deliverable</li>
 					<li class="hollow secondary button tiny" data-sorter="start_date">Start date</li>
 					<li class="hollow secondary button tiny" data-sorter="end_date">End date</li>
-					<li class="hollow secondary button tiny" data-sorter="team">Team</li>
+					<li class="hollow secondary button tiny" data-sorter="team">Audience</li>
 				</ul>
 			</div>
 			<div class="button-block last large-3 columns">
@@ -198,21 +198,17 @@
 				<ul id="color" class="button-group radius">
 					<li class="hollow secondary button tiny " data-color="all">Plain</li>
 					<li class="hollow secondary button tiny" data-color="priority">Priority</li>
-					<li class="hollow secondary button tiny" data-color="team">Team</li>
+					<li class="hollow secondary button tiny" data-color="team">Audience</li>
 				</ul>
 			</div>
 			<div class="button-block large-9 columns">
 				<h6>FILTER BY</h6>
 				<ul id="filter" class="button-group radius">
 					<li class="hollow secondary button tiny" data-filter="">All</li>
-					<li class="hollow secondary button tiny" data-filter="community">Community</li>
 					<li class="hollow secondary button tiny" data-filter="convenings">Convenings</li>
-					<li class="hollow secondary button tiny" data-filter="projects">Projects</li>
-					<li class="hollow secondary button tiny" data-filter="mln">MLN</li>
+					<li class="hollow secondary button tiny" data-filter="mentorship">Mentorship</li>
+					<li class="hollow secondary button tiny" data-filter="fellowship">Fellows</li>
 					<li class="hollow secondary button tiny" data-filter="curriculum">Curriculum</li>
-					<li class="hollow secondary button tiny" data-filter="assessment">Assessment</li>
-					<li class="hollow secondary button tiny" data-filter="logistics">Logistics</li>
-					<li class="hollow secondary button tiny" data-filter="core">Core</li>
 				</ul>
 			</div>
 
@@ -234,15 +230,16 @@
 		</div>
 		<!-- LEGEND - TEAM -->
 		<div id="legend-2" class="legend-style">
-		<div class="legend-title">Teams 2018</div>
+		<div class="legend-title">Audience</div>
 			<div class="legend-scale">
 				<ul class="legend-labels">
-					<li><span style="background:#d53e4f;"></span>Abby</li>
-					<li><span style="background:#f46d43;"></span>Chad</li>
-					<li><span style="background:#fdae61;"></span>Rizwan</li>
-					<li><span style="background:#fee08b;"></span>Zannah</li>
-					<li><span style="background:#66c2a5;"></span>OL Team</li>
-					<li><span style="background:#3288bd;"></span>All MoFo</li>
+					<li><span style="background:#d53e4f;"></span>L1</li>
+					<li><span style="background:#fdae61;"></span>L1 / L2</li>
+					<li><span style="background:#ffffbf;"></span>L2</li>
+					<li><span style="background:#66c2a5;"></span>L2 / L3</li>
+          <li><span style="background:#08519c;"></span>L3</li>
+          <li><span style="background:#ccc;"></span>L1 / L2 / L3</li>
+					<li><span style="background:#333;"></span>Mozilla</li>
 				</ul>
 			</div>
 		</div>
@@ -259,7 +256,11 @@
 			</div>
 		</div>
 
-		<script src="main.js"></script>
+    <script
+        src="http://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
+  		<script src="main.js"></script>
 	</body>
 </html>
 <!--special thx to mhkeller (homg dates in d3), and to aubergene (D3.edu)-->

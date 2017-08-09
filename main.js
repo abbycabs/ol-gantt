@@ -7,8 +7,8 @@
 	var canvas_width = d3.select('#chart-canvas').node().offsetWidth;
 
 	var teamColorScale = d3.scale.ordinal()
-		.domain(['Abby', 'Arliss', 'Aurelia', 'Zannah', 'Steph', 'Kaitlin', 'Team', 'Org'])
-		.range(['#d53e4f', '#f46d43', '#fdae61', '#fee08b', '#ffffbf', '#abdda4', '#66c2a5', '#3288bd']);
+		.domain(['L1', 'L1 + L2', 'L2', 'L2 + L3', 'L3', 'L1, L2, L3', 'Mozilla'])
+		.range(['#d53e4f', '#fdae61', '#ffffbf', '#66c2a5', '#08519c', '#ccc', '#333']);
 
 	var priorityScale = d3.scale.linear()
 		// .domain([-1, 0, 1])
@@ -31,6 +31,7 @@
 
 	// Declare color/filter vars
 	var color_selector, filter_selector;
+  color_selector = "team";
 
 	var today = new Date();
 
@@ -45,11 +46,12 @@
 
 	 // Switch to lowercase Y in the d3.time.format if using an excel csv, it's uppercase because google spreadsheets formats it's dates differently
 	 // this is porting from gdocs, so I uppercased the Y
-	var dateFormat = d3.time.format('%m/%d/%Y');
+	var dateFormat = d3.time.format('%m/%d/%y');
 
 	function tidyData(csv) {
 
 		// Tidy all the data in to the correct types as CSV gives everything as a string
+    console.log(csv);
 		csv.forEach(function(d, i) {
 			if (d['type'] === 'milestone') {
 				d.start_date = dateFormat.parse(d.start_date);
@@ -65,7 +67,7 @@
 			}
 
 		});
-
+    console.log('MILESTONE');
 		console.log(milestones);
 		// TO DO: Totes arbitrary values at this point for "priority", fix that
 	 	// Priority is a column field because there's probably some # value we'll want to sort deliverables by
@@ -154,7 +156,7 @@
 				// Update Tooltip Position & value
 				tooltip
 					.style('left', xy[0] + 'px')
-					.style('top', xy[1] + 'px');
+					.style('top', (xy[1] + 450) + 'px');
 			});
 
 		ganttBarContainer.append('div')
@@ -197,9 +199,9 @@
 			.attr('class', function(d) { return 'bar-wrapper ' + d.type })
 			.on('mouseover', function(d, i) {
 				var tt = '';
-				tt += '<p class="heading"><span id="keyword">' + d.team + '</span></p>';
+				tt += '<p class="heading"><span id="keyword">' + "Audience: " + d.team + '</span></p>';
 				tt += '<p class="indent"><span id="bar-data">' + d.deliverable + '</span></p>';
-				tt += '<p class="indent"><span id="bar-data">' + d.priority + " hours" + '</span></p>';
+        tt += '<p class="indent"><span id="bar-data">' + "Priority: " + d.priority + '</span></p>';
 				tt += '<p class="indent"><span id="cpcVal">' + dateFormat(d.start_date) + ' - ' + dateFormat(d.end_date) + '</span></p>';
 
 				tooltip
@@ -292,13 +294,56 @@
 	 * propending the url here with a heroku proxy to pull data from google sheets
 	 */
 
-   var csvURL = "http://guarded-ocean-2049.herokuapp.com/https://docs.google.com/spreadsheets/d/1j3bZ2lsOxnAL4TPYtmC8LKycEQTkwYlLQNidtPyk8U4/pub?output=csv&callback=?";
+   //var csvURL = "http://guarded-ocean-2049.herokuapp.com/https://docs.google.com/spreadsheets/d/1j3bZ2lsOxnAL4TPYtmC8LKycEQTkwYlLQNidtPyk8U4/pub?output=csv&callback=?";
+   // var csvURL = "https://docs.google.com/spreadsheets/d/1j3bZ2lsOxnAL4TPYtmC8LKycEQTkwYlLQNidtPyk8U4/pub?output=csv&callback=?";
+
+var sheetID = "1j3bZ2lsOxnAL4TPYtmC8LKycEQTkwYlLQNidtPyk8U4";
+var sheetURL = "https://spreadsheets.google.com/feeds/cells/"+sheetID+"/1/public/values?alt=json";
+
+  var loadData = function(){
+  $.get(sheetURL).done(function(returnedData) {
+    // var csv = ConvertToCSV(returnedData.feed.entry);
+    var csv = parseDriveData(returnedData);
+    tidyData(csv);
+    initialRender();
+    render();
+  });
+}
+
+loadData();
+
+// Formats JSON data returned from Google Spreadsheet and formats it into
+// an array with a series of objects with key value pairs like "column-name":"value"
+
+function parseDriveData(driveData){
+  var headings = {};
+  var newData = {};
+  var finalData = [];
+  var entries = driveData.feed.entry;
+
+  for(var i = 0; i < entries.length; i++){
+    var entry = entries[i];
+    var row = parseInt(entry.gs$cell.row);
+    var col = parseInt(entry.gs$cell.col);
+    var value = entry.content.$t;
+
+    if(row == 1) {
+      headings[col] = value;
+    }
+
+    if(row > 1) {
+      if(!newData[row]) {
+        newData[row] = {};
+      }
+      newData[row][headings[col]] = value;
+    }
+  }
+
+  for(var k in newData){
+    finalData.push(newData[k]);
+  }
+
+  return finalData;
+}
 
 
-	d3.csv(csvURL, function(csv) {
-		tidyData(csv);
-		initialRender();
-		render();
-	});
-
-// })();
