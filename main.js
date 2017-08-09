@@ -67,8 +67,6 @@
 			}
 
 		});
-    console.log('MILESTONE');
-		console.log(milestones);
 		// TO DO: Totes arbitrary values at this point for "priority", fix that
 	 	// Priority is a column field because there's probably some # value we'll want to sort deliverables by
 		// Set priority extent and scaling for whatever amount you want to prioritize (resources, counts, downloads, anything numeric)
@@ -294,15 +292,11 @@
 	 * propending the url here with a heroku proxy to pull data from google sheets
 	 */
 
-   //var csvURL = "http://guarded-ocean-2049.herokuapp.com/https://docs.google.com/spreadsheets/d/1j3bZ2lsOxnAL4TPYtmC8LKycEQTkwYlLQNidtPyk8U4/pub?output=csv&callback=?";
-   // var csvURL = "https://docs.google.com/spreadsheets/d/1j3bZ2lsOxnAL4TPYtmC8LKycEQTkwYlLQNidtPyk8U4/pub?output=csv&callback=?";
-
 var sheetID = "1j3bZ2lsOxnAL4TPYtmC8LKycEQTkwYlLQNidtPyk8U4";
 var sheetURL = "https://spreadsheets.google.com/feeds/cells/"+sheetID+"/1/public/values?alt=json";
 
   var loadData = function(){
   $.get(sheetURL).done(function(returnedData) {
-    // var csv = ConvertToCSV(returnedData.feed.entry);
     var csv = parseDriveData(returnedData);
     tidyData(csv);
     initialRender();
