@@ -185,7 +185,12 @@
 		var filteredData = data;
 
 		if (filter_selector) {
-			filteredData = data.filter(function(d) { return d.type == filter_selector });
+      if(filter_selector.match(/^l\d$/)){
+        filteredData = data.filter(function(d) {
+          return d.team.match(filter_selector.toUpperCase()) });
+      } else {
+  			filteredData = data.filter(function(d) { return d.type == filter_selector });
+      }
 		}
 
 		var barWrappers = ganttBarContainer.selectAll('.bar-wrapper')
