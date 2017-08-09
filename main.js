@@ -7,7 +7,7 @@
 	var canvas_width = d3.select('#chart-canvas').node().offsetWidth;
 
 	var teamColorScale = d3.scale.ordinal()
-		.domain(['L1', 'L1 + L2', 'L2', 'L2 + L3', 'L3', 'L1, L2, L3', 'Mozilla'])
+		.domain(['L1', 'L1 + L2', 'L2', 'L2 + L3', 'L3', 'L1 + L2 + L3', 'Mozilla'])
 		.range(['#d53e4f', '#fdae61', '#ffffbf', '#66c2a5', '#08519c', '#ccc', '#333']);
 
 	var priorityScale = d3.scale.linear()
