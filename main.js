@@ -154,7 +154,7 @@
 				// Update Tooltip Position & value
 				tooltip
 					.style('left', xy[0] + 'px')
-					.style('top', (xy[1] + 450) + 'px');
+					.style('top', (xy[1] + 380) + 'px');
 			});
 
 		ganttBarContainer.append('div')
